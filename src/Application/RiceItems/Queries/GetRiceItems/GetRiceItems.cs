@@ -9,7 +9,7 @@ public class GetRiceItemsQueryValidator : AbstractValidator<GetRiceItemsQuery>
     public GetRiceItemsQueryValidator() { }
 }
 
-public class GetRiceItemsQueryHandler : IRequestHandler<GetRiceItemsQuery, RiceItemDto>
+public class GetRiceItemsQueryHandler : IRequestHandler<GetRiceItemsQuery, List<RiceItemDto>>
 {
     private readonly IApplicationDbContext _context;
 
@@ -18,11 +18,19 @@ public class GetRiceItemsQueryHandler : IRequestHandler<GetRiceItemsQuery, RiceI
         _context = context;
     }
 
-    public async Task<RiceItemDto> Handle(
+    public async Task<List<RiceItemDto>> Handle(
         GetRiceItemsQuery request,
         CancellationToken cancellationToken
     )
     {
-        throw new NotImplementedException();
+        return await _context
+            .RiceItems.Select(item => new RiceItemDto
+            {
+                Id = item.Id,
+                Title = item.Title,
+                Downloads = item.Downloads,
+                DownloadLink = item.DownloadLink,
+            })
+            .ToListAsync(cancellationToken);
     }
 }
