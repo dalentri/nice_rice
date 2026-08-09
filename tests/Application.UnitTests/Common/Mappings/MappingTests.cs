@@ -1,10 +1,10 @@
 using System.Runtime.CompilerServices;
 using AutoMapper;
-using rice_ecommerce.Application.Common.Interfaces;
-using rice_ecommerce.Application.TodoLists.Queries.GetTodos;
-using rice_ecommerce.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
+using rice_ecommerce.Application.Common.Interfaces;
+using rice_ecommerce.Application.RiceItems.Queries.GetRiceItems;
+using rice_ecommerce.Domain.Entities;
 
 namespace rice_ecommerce.Application.UnitTests.Common.Mappings;
 
@@ -20,9 +20,10 @@ public class MappingTests
         // Minimal logger factory for tests
         _loggerFactory = LoggerFactory.Create(b => b.AddDebug().SetMinimumLevel(LogLevel.Debug));
 
-        _configuration = new MapperConfiguration(cfg =>
-            cfg.AddMaps(typeof(IApplicationDbContext).Assembly),
-            loggerFactory: _loggerFactory);
+        _configuration = new MapperConfiguration(
+            cfg => cfg.AddMaps(typeof(IApplicationDbContext).Assembly),
+            loggerFactory: _loggerFactory
+        );
 
         _mapper = _configuration.CreateMapper();
     }
@@ -34,8 +35,7 @@ public class MappingTests
     }
 
     [Test]
-    [TestCase(typeof(TodoList), typeof(TodoListDto))]
-    [TestCase(typeof(TodoItem), typeof(TodoItemDto))]
+    [TestCase(typeof(RiceItem), typeof(RiceItemDto))]
     public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
     {
         var instance = GetInstanceOf(source);
@@ -51,7 +51,6 @@ public class MappingTests
         // Type without parameterless constructor
         return RuntimeHelpers.GetUninitializedObject(type);
     }
-
 
     [OneTimeTearDown]
     public void OneTimeTearDown()
