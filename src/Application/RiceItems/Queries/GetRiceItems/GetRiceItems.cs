@@ -1,8 +1,9 @@
 using rice_ecommerce.Application.Common.Interfaces;
+using rice_ecommerce.Application.RiceItems.Queries.GetRiceItems;
 
 namespace rice_ecommerce.Application.RiceItems.Queries.GetRiceItems;
 
-public record GetRiceItemsQuery : IRequest<RiceItemDto> { }
+public record GetRiceItemsQuery : IRequest<List<RiceItemDto>> { }
 
 public class GetRiceItemsQueryValidator : AbstractValidator<GetRiceItemsQuery>
 {
