@@ -12,7 +12,15 @@ public record CreateRiceItemCommand : IRequest<int>
 
 public class CreateRiceItemCommandValidator : AbstractValidator<CreateRiceItemCommand>
 {
-    public CreateRiceItemCommandValidator() { }
+    public CreateRiceItemCommandValidator()
+    {
+        RuleFor(x => x.Title).NotEmpty().MaximumLength(120).Matches(@"^[a-zA-Z0-9 ]+$");
+        RuleFor(x => x.Downloads).GreaterThanOrEqualTo(0);
+        RuleFor(x => x.DownloadLink)
+            .Must(link => Uri.TryCreate(link, UriKind.Absolute, out _))
+            .When(x => !string.IsNullOrEmpty(x.DownloadLink))
+            .WithMessage("Enter a valid Link");
+    }
 }
 
 public class CreateRiceItemCommandHandler : IRequestHandler<CreateRiceItemCommand, int>
