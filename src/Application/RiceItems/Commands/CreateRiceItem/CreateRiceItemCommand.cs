@@ -40,7 +40,6 @@ public class CreateRiceItemCommandHandler : IRequestHandler<CreateRiceItemComman
         RiceItem tempRiceItem = new RiceItem
         {
             Title = request.Title,
-            Downloads = request.Downloads,
             DownloadLink = request.DownloadLink,
         };
 
