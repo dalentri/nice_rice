@@ -17,7 +17,7 @@ export default function Root() {
         <Links />
       </head>
       <body>
-        <Link to="/" className="flex justify-center ">
+        <Link to="/" className="flex  font-bold text-3xl m-2 ml-4">
           Nice Rice
         </Link>
         <Outlet />
