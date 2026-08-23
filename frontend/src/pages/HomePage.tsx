@@ -10,7 +10,7 @@ function HomePage() {
             Linux is the future. Make your introduction to the future easier
             (and beautiful).
           </p>
-          <Link to="/Gallery" className="p-2 bg-blue-800 rounded-lg">
+          <Link to="/gallery" className="p-2 bg-blue-800 rounded-lg">
             All Rices
           </Link>
         </div>
