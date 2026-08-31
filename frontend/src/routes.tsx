@@ -8,4 +8,5 @@ import {
 export default [
   index("./pages/HomePage.tsx"),
   route("gallery", "./pages/GalleryPage.tsx"),
+  route("admin", "./pages/AdminPage.tsx"),
 ] satisfies RouteConfig;

@@ -17,9 +17,12 @@ export default function Root() {
         <Links />
       </head>
       <body>
-        <Link to="/" className="flex  font-bold text-3xl m-2 ml-4">
-          Nice Rice
-        </Link>
+        <nav className="flex items-center">
+          <Link to="/" className="flex  font-bold text-3xl m-2 ml-4">
+            Nice Rice
+          </Link>
+          <Link to="/admin">Admin</Link>
+        </nav>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
