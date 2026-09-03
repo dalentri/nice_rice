@@ -107,12 +107,18 @@ public class ApplicationDbContextInitialiser
                     Title = "NixOS Rice",
                     Downloads = 0,
                     DownloadLink = "120",
+                    IsActive = true,
+                    CreatedBy = "dalentri",
+                    CreatedDate = DateTimeOffset.UtcNow,
                 },
                 new RiceItem
                 {
                     Title = "CachyOS Rice",
                     Downloads = 0,
                     DownloadLink = "335",
+                    IsActive = false,
+                    CreatedBy = "katsuro",
+                    CreatedDate = DateTimeOffset.UtcNow,
                 }
             );
 

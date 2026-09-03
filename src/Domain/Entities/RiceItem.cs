@@ -8,5 +8,5 @@ public class RiceItem
     public required string? DownloadLink { get; set; }
     public bool IsActive { get; init; }
     public string CreatedBy { get; init; } = "No Author";
-    public DateTime CreatedDate { get; init; }
+    public DateTimeOffset CreatedDate { get; init; }
 }
