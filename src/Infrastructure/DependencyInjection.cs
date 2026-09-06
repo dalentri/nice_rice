@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using rice_ecommerce.Application.Common.Interfaces;
+using rice_ecommerce.Application.Common.Models;
 using rice_ecommerce.Infrastructure.Data;
 using rice_ecommerce.Infrastructure.Data.Interceptors;
 using rice_ecommerce.Infrastructure.Identity;
@@ -52,5 +54,24 @@ public static class DependencyInjection
 
         builder.Services.AddSingleton(TimeProvider.System);
         builder.Services.AddTransient<IIdentityService, IdentityService>();
+
+        builder.Services.Configure<JwtSettings>(
+            builder.Configuration.GetSection(JwtSettings.SectionName)
+        );
+
+        builder
+            .Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(
+                (
+                    options =>
+                    {
+                        //TODO: Validation rules
+                    }
+                )
+            );
     }
 }
