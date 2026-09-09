@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using rice_ecommerce.Application.Common.Interfaces;
 using rice_ecommerce.Application.Common.Models;
 using rice_ecommerce.Infrastructure.Data;
@@ -42,8 +44,6 @@ public static class DependencyInjection
 
         builder.Services.AddScoped<ApplicationDbContextInitialiser>();
 
-        builder.Services.AddAuthentication().AddBearerToken(IdentityConstants.BearerScheme);
-
         builder.Services.AddAuthorizationBuilder();
 
         builder
@@ -65,14 +65,26 @@ public static class DependencyInjection
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            .AddJwtBearer(
-                (
-                    options =>
-                    {
-                        //TODO: Validation rules
-                    }
-                )
-            );
+            .AddJwtBearer(options =>
+            {
+                var jwtSettings = builder
+                    .Configuration.GetSection(JwtSettings.SectionName)
+                    .Get<JwtSettings>();
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = jwtSettings?.Issuer,
+                    ValidAudience = jwtSettings?.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(jwtSettings?.Secret!)
+                    ),
+                };
+            });
         builder.Services.AddTransient<ITokenGenerator, JwtTokenGenerator>();
     }
 }
