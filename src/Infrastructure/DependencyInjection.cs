@@ -73,5 +73,6 @@ public static class DependencyInjection
                     }
                 )
             );
+        builder.Services.AddTransient<ITokenGenerator, JwtTokenGenerator>();
     }
 }
