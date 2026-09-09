@@ -1,8 +1,8 @@
-using rice_ecommerce.Application.Common.Interfaces;
-using rice_ecommerce.Application.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using rice_ecommerce.Application.Common.Interfaces;
+using rice_ecommerce.Application.Common.Models;
 
 namespace rice_ecommerce.Infrastructure.Identity;
 
@@ -15,7 +15,8 @@ public class IdentityService : IIdentityService
     public IdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-        IAuthorizationService authorizationService)
+        IAuthorizationService authorizationService
+    )
     {
         _userManager = userManager;
         _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
@@ -29,13 +30,12 @@ public class IdentityService : IIdentityService
         return user?.UserName;
     }
 
-    public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
+    public async Task<(Result Result, string UserId)> CreateUserAsync(
+        string userName,
+        string password
+    )
     {
-        var user = new ApplicationUser
-        {
-            UserName = userName,
-            Email = userName,
-        };
+        var user = new ApplicationUser { UserName = userName, Email = userName };
 
         var result = await _userManager.CreateAsync(user, password);
 
@@ -77,5 +77,39 @@ public class IdentityService : IIdentityService
         var result = await _userManager.DeleteAsync(user);
 
         return result.ToApplicationResult();
+    }
+
+    public async Task<(Result Result, string UserId)> CheckPasswordByEmailAsync(
+        string email,
+        string password
+    )
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if (user == null)
+        {
+            return (Result.Failure(["Invalid credentials"]), string.Empty);
+        }
+
+        var isValidPassword = await _userManager.CheckPasswordAsync(user, password);
+
+        if (!isValidPassword)
+        {
+            return (Result.Failure(["Invalid Credentials"]), string.Empty);
+        }
+
+        return (Result.Success(), user.Id.ToString());
+    }
+
+    public async Task<IList<string>> GetUserRoles(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+
+        if (user == null)
+        {
+            return [];
+        }
+
+        return await _userManager.GetRolesAsync(user);
     }
 }
