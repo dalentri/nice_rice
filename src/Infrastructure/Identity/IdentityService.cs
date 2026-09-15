@@ -101,7 +101,7 @@ public class IdentityService : IIdentityService
         return (Result.Success(), user.Id.ToString());
     }
 
-    public async Task<IList<string>> GetUserRoles(string userId)
+    public async Task<IList<string>> GetUserRolesAsync(string userId)
     {
         var user = await _userManager.FindByIdAsync(userId);
 
