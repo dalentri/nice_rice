@@ -1,28 +1,61 @@
-﻿# rice_ecommerce
+﻿# Nice Rice, a Marketplace for Linux Rices
 
-The project was generated using the [Clean.Architecture.Solution.Template](https://github.com/jasontaylordev/CleanArchitecture) version 10.8.0.
+Nice Rice is a Linux marketplace for Linux rices. It features a clean architecture enforced back-end with a react front-end.
 
-## Build
+## Installation
 
-Run `dotnet build` to build the solution.
+1. **Clone the Repository**
 
-## Run
+   ```bash
+   git clone https://github.com/dalentri/rice_ecommerce.git
+   cd rice_ecommerce
+   ```
 
-To run the application:
+2. **Install Frontend Dependencies**
 
-```bash
-dotnet run --project .\src\AppHost
-```
+   Navigate to the `frontend` directory and install the dependencies using Bun:
 
-The Aspire dashboard will open automatically, showing the application URLs and logs.
+   ```bash
+   cd frontend
+   bun install
+   ```
 
-## Code Styles & Formatting
+3. **Install Backend Dependencies**
 
-The template includes [EditorConfig](https://editorconfig.org/) support to help maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs. The **.editorconfig** file defines the coding styles applicable to this solution.
+   Navigate to the `src/Web` directory and restore the .NET dependencies:
 
-## Code Scaffolding
+   ```bash
+   cd ../src/Web
+   dotnet restore
+   ```
 
-The template includes support to scaffold new commands and queries.
+## Usage
+
+1. **Start the Frontend**
+
+   Run the frontend development server with Bun from the `frontend` directory:
+
+   ```bash
+   cd frontend
+   bun run dev --open
+   ```
+
+2. **Start the Backend**
+
+   Run the backend with .NET:
+
+   ```bash
+   cd src/Web
+   dotnet run
+   ```
+
+   The application will now be available in the opened front-end http server at `http://localhost:5173`.
+
+## Contributing
+
+### Code Scaffolding
+
+The project includes support to scaffold new commands and queries.
 
 Start in the `.\src\Application\` folder.
 
@@ -38,11 +71,7 @@ Create a new query:
 dotnet new ca-usecase -n GetTodos -fn TodoLists -ut query -rt TodosVm
 ```
 
-If you encounter the error *"No templates or subcommands found matching: 'ca-usecase'."*, install the template and try again:
-
-```bash
-dotnet new install Clean.Architecture.Solution.Template::10.8.0
-```
+````
 
 ## Test
 
@@ -51,7 +80,8 @@ The solution contains unit, integration, and functional tests.
 To run the tests:
 ```bash
 dotnet test
-```
+````
 
-## Help
-To learn more about the template go to the [project website](https://cleanarchitecture.jasontaylor.dev). Here you can find additional guidance, request new features, report a bug, and discuss the template with other users.
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
