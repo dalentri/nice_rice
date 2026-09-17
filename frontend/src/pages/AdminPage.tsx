@@ -39,14 +39,6 @@ function AdminPage() {
             </li>
           ))}
         </ul>
-        <h1 className="flex justify-center font-bold text-3xl ">Admin</h1>
-        <div>
-          {items.map((item) => (
-            <li key={item.id}>
-              <h3>{item.title}</h3>
-            </li>
-          ))}
-        </div>
       </main>
     </>
   );
