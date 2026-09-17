@@ -12,7 +12,7 @@ public class RiceItems : IEndpointGroup
     public static void Map(RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGet("/", GetRiceItems);
-        groupBuilder.MapPost("/", CreateRiceItem);
+        groupBuilder.MapPost("/", CreateRiceItem).RequireAuthorization();
         //TODO: Implement delete item
         // groupBuilder.MapDelete("/", DeleteRiceItem);
     }
