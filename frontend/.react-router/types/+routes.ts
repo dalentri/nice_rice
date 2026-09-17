@@ -20,12 +20,15 @@ type Pages = {
   "/admin": {
     params: {};
   };
+  "/login": {
+    params: {};
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/gallery" | "/admin";
+    page: "/" | "/gallery" | "/admin" | "/login";
   };
   "./pages/HomePage.tsx": {
     id: "pages/HomePage";
@@ -39,6 +42,10 @@ type RouteFiles = {
     id: "pages/AdminPage";
     page: "/admin";
   };
+  "./pages/LoginPage.tsx": {
+    id: "pages/LoginPage";
+    page: "/login";
+  };
 };
 
 type RouteModules = {
@@ -46,4 +53,5 @@ type RouteModules = {
   "pages/HomePage": typeof import("./src/./pages/HomePage.tsx");
   "pages/GalleryPage": typeof import("./src/./pages/GalleryPage.tsx");
   "pages/AdminPage": typeof import("./src/./pages/AdminPage.tsx");
+  "pages/LoginPage": typeof import("./src/./pages/LoginPage.tsx");
 };

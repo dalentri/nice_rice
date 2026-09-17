@@ -22,6 +22,7 @@ export default function Root() {
             Nice Rice
           </Link>
           <Link to="/admin">Admin</Link>
+          <Link to="/login">Login</Link>
         </nav>
         <Outlet />
         <ScrollRestoration />
