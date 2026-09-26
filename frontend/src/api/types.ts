@@ -19,3 +19,13 @@ export interface CreateRiceItemCommand {
   title: string;
   downloadLink: string;
 }
+
+export interface LoginCommand {
+  email: string;
+  password: string;
+}
+
+export interface AuthResponseDto {
+  token: string;
+  email: string;
+}

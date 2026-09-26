@@ -9,4 +9,5 @@ export default [
   index("./pages/HomePage.tsx"),
   route("gallery", "./pages/GalleryPage.tsx"),
   route("admin", "./pages/AdminPage.tsx"),
+  route("login", "./pages/LoginPage.tsx"),
 ] satisfies RouteConfig;
