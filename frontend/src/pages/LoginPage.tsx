@@ -60,7 +60,9 @@ const LoginPage = () => {
           </button>
         </form>
         {errorMessage && <p className="">{errorMessage}</p>}
-        <Link to="/create_user">Create User</Link>
+        <Link to="/create_user" className="flex justify-center">
+          Create Account
+        </Link>
       </main>
     </>
   );
