@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { loginUser } from "../api/AuthApi";
 import { useMutation } from "@tanstack/react-query";
 import { AuthContext } from "../AuthContext";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -60,6 +60,7 @@ const LoginPage = () => {
           </button>
         </form>
         {errorMessage && <p className="">{errorMessage}</p>}
+        <Link to="/create_user">Create User</Link>
       </main>
     </>
   );

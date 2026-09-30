@@ -23,12 +23,15 @@ type Pages = {
   "/login": {
     params: {};
   };
+  "/create_user": {
+    params: {};
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/gallery" | "/admin" | "/login";
+    page: "/" | "/gallery" | "/admin" | "/login" | "/create_user";
   };
   "./pages/HomePage.tsx": {
     id: "pages/HomePage";
@@ -46,6 +49,10 @@ type RouteFiles = {
     id: "pages/LoginPage";
     page: "/login";
   };
+  "./pages/CreateUserPage.tsx": {
+    id: "pages/CreateUserPage";
+    page: "/create_user";
+  };
 };
 
 type RouteModules = {
@@ -54,4 +61,5 @@ type RouteModules = {
   "pages/GalleryPage": typeof import("./src/./pages/GalleryPage.tsx");
   "pages/AdminPage": typeof import("./src/./pages/AdminPage.tsx");
   "pages/LoginPage": typeof import("./src/./pages/LoginPage.tsx");
+  "pages/CreateUserPage": typeof import("./src/./pages/CreateUserPage.tsx");
 };
