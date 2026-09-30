@@ -9,7 +9,6 @@ const CreateUserPage = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
   const createUserMutation = useMutation({
@@ -17,6 +16,10 @@ const CreateUserPage = () => {
     onSuccess: (data) => {
       console.log("Logged in successfully.", data);
       navigate("/login");
+    },
+    onError: (error) => {
+      console.error("Account creation failed.", error);
+      setErrorMessage(error.toString());
     },
   });
 
@@ -31,6 +34,7 @@ const CreateUserPage = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            createUserMutation.mutate({ email, password });
           }}
           className="flex flex-col gap-3 items-center m-5"
         >
