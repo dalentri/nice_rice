@@ -25,6 +25,11 @@ export interface LoginCommand {
   password: string;
 }
 
+export interface CreateUserCommand {
+  email: string;
+  password: string;
+}
+
 export interface AuthResponseDto {
   token: string;
   email: string;
