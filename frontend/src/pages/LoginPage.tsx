@@ -3,6 +3,7 @@ import { loginUser } from "../api/AuthApi";
 import { useMutation } from "@tanstack/react-query";
 import { AuthContext } from "../AuthContext";
 import { Link, useNavigate } from "react-router";
+import axios from "axios";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -21,7 +22,13 @@ const LoginPage = () => {
     },
     onError: (error) => {
       console.error("Login failed.", error);
-      setErrorMessage(error.toString());
+      if (axios.isAxiosError(error)) {
+        // TypeScript now knows 'error' is an AxiosError!
+        console.log("Server response:", error.response?.data);
+        setErrorMessage(error.response?.data?.detail || "Login failed");
+      } else {
+        setErrorMessage(error.message);
+      }
     },
   });
 

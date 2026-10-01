@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router";
 import { createUser } from "../api/AuthApi";
+import axios from "axios";
 
 const CreateUserPage = () => {
   const [email, setEmail] = useState("");
@@ -18,8 +19,15 @@ const CreateUserPage = () => {
       navigate("/login");
     },
     onError: (error) => {
-      console.error("Account creation failed.", error);
-      setErrorMessage(error.toString());
+      if (axios.isAxiosError(error)) {
+        // TypeScript now knows 'error' is an AxiosError!
+        console.log("Server response:", error.response?.data);
+        setErrorMessage(
+          error.response?.data?.detail || "Account creation failed",
+        );
+      } else {
+        setErrorMessage(error.message);
+      }
     },
   });
 
