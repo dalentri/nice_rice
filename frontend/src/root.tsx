@@ -12,6 +12,7 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import "./index.css";
+import Can from "./Can.tsx";
 
 const queryClient = new QueryClient();
 
@@ -29,7 +30,9 @@ export default function Root() {
             <Link to="/" className="flex  font-bold text-3xl m-2 ml-4">
               Nice Rice
             </Link>
-            <Link to="/admin">Admin</Link>
+            <Can requiredRole="Admin">
+              <Link to="/admin">Admin</Link>
+            </Can>
             <Link to="/login">Login</Link>
           </nav>
           <Outlet />
